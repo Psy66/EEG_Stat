@@ -84,7 +84,8 @@ This project is licensed under the **MIT License**. For details, see the [LICENS
 
 If you have any questions or suggestions, please contact me at [psy66@narod.ru](mailto:psy66@narod.ru).  
 Your feedback and ideas will help make this project better! 🚀
-```
+
+---
 
 # 🧠 EDF File Manager
 
