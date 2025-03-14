@@ -140,7 +140,7 @@ Your feedback and ideas will help make this project better! 🚀
 
 ## 👨‍💻 Автор
 
-**Tim Liner**  
+**Timur Petrenko**  
 📧 Email: [psy66@narod.ru](mailto:psy66@narod.ru)
 
 ---
