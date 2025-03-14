@@ -39,7 +39,7 @@ def print_edf_file_info(edf_file_path):
     print(f"  File Size: {os.path.getsize(edf_file_path) / 1024 / 1024:.2f} MB")
 
 # Example usage
-edf_file_path = input("Enter the path to the EDF file: ").strip('"')  # Remove quotes
+edf_file_path = input("Enter the path to the EDF file: ").strip('"')
 if os.path.isfile(edf_file_path):
     print_edf_file_info(edf_file_path)
 else:

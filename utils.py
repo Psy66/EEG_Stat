@@ -2,7 +2,7 @@
 import os
 
 def check_directory(directory):
-    """Проверка существования директории."""
+    """Checks if the directory exists."""
     if not os.path.exists(directory):
-        raise FileNotFoundError(f"Директория {directory} не существует.")
+        raise FileNotFoundError(f"Directory {directory} does not exist.")
     return True

@@ -5,25 +5,25 @@ from tqdm import tqdm
 from transliterate import translit
 
 def extract_patient_name(filename):
-    """Извлекает имя пациента из имени файла."""
+    """Extracts the patient's name from the file name."""
     parts = filename.replace(".edf", "").split("_")
     if len(parts) >= 3:
         return " ".join(parts[:3])
-    raise ValueError(f"Некорректное имя файла: {filename}")
+    raise ValueError(f"Invalid file name: {filename}")
 
 def generate_patient_table(directory, output_file):
-    """Создаёт таблицу CSV с уникальными именами пациентов на кириллице."""
+    """Creates a CSV table with unique patient names in Cyrillic."""
     files = [f for f in os.listdir(directory) if f.endswith(".edf")]
     patient_names = set()
 
-    for file in tqdm(files, desc="Обработка файлов", unit="file"):
+    for file in tqdm(files, desc="Processing files", unit="file"):
         try:
             name = extract_patient_name(file)
-            # Транслитерируем имя с латиницы на кириллицу
+            # Transliterate the name from Latin to Cyrillic
             translated_name = translit(name, 'ru', reversed=True)
             patient_names.add(translated_name)
         except Exception as e:
-            print(f"Ошибка при обработке файла {file}: {e}")
+            print(f"Error processing file {file}: {e}")
 
     sorted_names = sorted(patient_names)
 
@@ -33,20 +33,20 @@ def generate_patient_table(directory, output_file):
 
     with open(output_path, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        writer.writerow(["ФИО пациента"])
+        writer.writerow(["Patient Name"])
         for name in sorted_names:
             writer.writerow([name])
 
 def main():
-    """Основная функция для генерации таблицы пациентов."""
-    directory = input("Введите путь к директории с EDF-файлами: ").strip()
+    """Main function to generate the patient table."""
+    directory = input("Enter the path to the directory containing EDF files: ").strip()
     output_file = "patient_table.csv"
 
     if not os.path.isdir(directory):
-        print("Указанная директория не существует.")
+        print("The specified directory does not exist.")
     else:
         generate_patient_table(directory, output_file)
-        print(f"Таблица с именами пациентов сохранена в файл output/{output_file}.")
+        print(f"The patient name table is saved to output/{output_file}.")
 
 if __name__ == "__main__":
     main()
