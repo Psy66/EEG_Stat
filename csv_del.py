@@ -1,28 +1,29 @@
+# csv_del.py
 import csv
 
 def remove_first_column(input_file, output_file):
-	"""Удаляет первый столбец из CSV-файла и сохраняет результат в новый файл."""
-	try:
-		with open(input_file, mode='r', newline='', encoding='utf-8') as infile, \
-				open(output_file, mode='w', newline='', encoding='utf-8') as outfile:
+    """Removes the first column from a CSV file and saves the result to a new file."""
+    try:
+        with open(input_file, mode='r', newline='', encoding='utf-8') as infile, \
+                open(output_file, mode='w', newline='', encoding='utf-8') as outfile:
 
-			reader = csv.reader(infile)
-			writer = csv.writer(outfile)
+            reader = csv.reader(infile)
+            writer = csv.writer(outfile)
 
-			for row in reader:
-				# Удаляем первый столбец и записываем оставшиеся данные
-				writer.writerow(row[1:])
+            for row in reader:
+                # Remove the first column and write the remaining data
+                writer.writerow(row[1:])
 
-		print(f"Результат успешно записан в файл: {output_file}")
+        print(f"Result successfully written to file: {output_file}")
 
-	except FileNotFoundError:
-		print(f"Ошибка: файл '{input_file}' не найден.")
-	except Exception as e:
-		print(f"Ошибка при обработке файла: {e}")
+    except FileNotFoundError:
+        print(f"Error: file '{input_file}' not found.")
+    except Exception as e:
+        print(f"Error processing the file: {e}")
 
-# Запрос имени файла у пользователя
-input_csv = input("Введите имя CSV-файла для обработки: ")
-output_csv = input("Введите имя выходного файла: ")
+# Prompt the user for the file name
+input_csv = input("Enter the name of the CSV file to process: ")
+output_csv = input("Enter the name of the output file: ")
 
-# Вызов функции для удаления первого столбца
+# Call the function to remove the first column
 remove_first_column(input_csv, output_csv)
