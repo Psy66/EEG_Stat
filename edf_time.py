@@ -6,7 +6,9 @@ from mne.io import read_raw_edf
 from tqdm import tqdm
 
 def get_edf_start_time(file_path):
-    """Извлекает дату и время начала записи из EDF-файла с помощью MNE."""
+    """
+    Extracts the recording start time from an EDF file using MNE.
+    """
     try:
         raw = read_raw_edf(file_path, preload=False, verbose=False)
         start_datetime = raw.info['meas_date']
@@ -14,15 +16,17 @@ def get_edf_start_time(file_path):
             return start_datetime
         return None
     except Exception as e:
-        print(f"Ошибка при чтении файла {file_path}: {e}")
+        print(f"Error reading file {file_path}: {e}")
         return None
 
 def find_edf_with_similar_start_time(directory, time_delta=timedelta(minutes=10)):
-    """Ищет EDF-файлы с близким временем начала записи (в пределах time_delta)."""
+    """
+    Finds EDF files with similar start times (within time_delta).
+    """
     time_dict = defaultdict(list)
     edf_files = [os.path.join(root, file) for root, _, files in os.walk(directory) for file in files if file.lower().endswith('.edf')]
 
-    for file_path in tqdm(edf_files, desc="Обработка файлов", unit="file"):
+    for file_path in tqdm(edf_files, desc="Processing files", unit="file"):
         start_datetime = get_edf_start_time(file_path)
         if start_datetime:
             rounded_time = start_datetime - timedelta(minutes=start_datetime.minute % 10)
@@ -40,22 +44,24 @@ def find_edf_with_similar_start_time(directory, time_delta=timedelta(minutes=10)
     return similar_time_groups
 
 def main():
-    """Основная функция для поиска файлов с близким временем начала записи."""
-    directory = input("Введите путь к директории с EDF-файлами: ").strip()
+    """
+    Main function to find files with similar start times.
+    """
+    directory = input("Enter the path to the directory containing EDF files: ").strip()
     if not os.path.isdir(directory):
-        print("Указанная директория не существует.")
+        print("The specified directory does not exist.")
         return
 
     similar_time_groups = find_edf_with_similar_start_time(directory)
 
     if similar_time_groups:
-        print("Найдены EDF-файлы с близким временем начала записи (в пределах 10 минут):")
+        print("EDF files with similar start times (within 10 minutes) were found:")
         for group in similar_time_groups:
-            print(f"Группа файлов с близким временем начала:")
+            print("Group of files with similar start times:")
             for start_datetime, file_path in group:
-                print(f"  Время: {start_datetime}, Файл: {file_path}")
+                print(f"  Time: {start_datetime}, File: {file_path}")
     else:
-        print("EDF-файлов с близким временем начала записи не найдено.")
+        print("No EDF files with similar start times were found.")
 
 if __name__ == "__main__":
     main()

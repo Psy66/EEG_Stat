@@ -7,7 +7,7 @@ from seaborn import countplot, histplot
 from matplotlib.pyplot import figure, title, savefig, close
 
 def calculate_age(birthdate, recording_date):
-    """Вычисляет возраст на момент записи."""
+    """Calculates the age at the time of recording."""
     try:
         if isinstance(birthdate, str):
             birthdate = parse(birthdate)
@@ -20,24 +20,24 @@ def calculate_age(birthdate, recording_date):
             age -= 1
         return age
     except Exception as e:
-        print(f"Ошибка при вычислении возраста: {e}")
+        print(f"Error calculating age: {e}")
         return None
 
 def generate_statistics(metadata_list):
-    """Генерация описательной статистики по метаданным."""
+    """Generates descriptive statistics from metadata."""
     stats = defaultdict(list)
     for metadata in metadata_list:
         subject_info = metadata.get('subject_info', {})
         stats['file_name'].append(metadata['file_name'])
         stats['sex'].append(
-            'Муж' if subject_info.get('sex') == 1 else 'Жен' if subject_info.get('sex') == 2 else 'Unknown')
+            'Male' if subject_info.get('sex') == 1 else 'Female' if subject_info.get('sex') == 2 else 'Unknown')
 
         birthdate = subject_info.get('birthday')
         recording_date = metadata.get('meas_date')
         if birthdate and recording_date:
             age = calculate_age(birthdate, recording_date)
             if age is not None:
-                stats['age'].append(min(age, 60))  # Ограничение возраста до 60 лет
+                stats['age'].append(min(age, 60))  # Limit age to 60 years
 
         stats['duration_minutes'].append(metadata['duration'] / 60)
 
@@ -50,13 +50,13 @@ def generate_statistics(metadata_list):
     return df, descriptive_stats
 
 def visualize_statistics(df, output_dir):
-    """Визуализация статистики."""
+    """Visualizes the statistics."""
     os.makedirs(output_dir, exist_ok=True)
 
     if 'sex' in df.columns:
         figure(figsize=(8, 6))
         countplot(data=df, x='sex')
-        title('Распределение по полу')
+        title('Sex Distribution')
         savefig(os.path.join(output_dir, 'sex_distribution.png'))
         close()
 
@@ -65,13 +65,13 @@ def visualize_statistics(df, output_dir):
         if not age_data.empty:
             figure(figsize=(8, 6))
             histplot(data=age_data, x='age', bins=20, kde=True)
-            title('Распределение по возрасту')
+            title('Age Distribution')
             savefig(os.path.join(output_dir, 'age_distribution.png'))
             close()
 
     if 'duration_minutes' in df.columns:
         figure(figsize=(8, 6))
         histplot(data=df, x='duration_minutes', bins=20, kde=True)
-        title('Длительность записи (минуты)')
+        title('Recording Duration (minutes)')
         savefig(os.path.join(output_dir, 'duration_distribution.png'))
         close()
