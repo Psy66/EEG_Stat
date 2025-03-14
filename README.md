@@ -57,16 +57,6 @@
 
 ---
 
-## 📦 Dependencies
-
-- `tkinter`: For creating the graphical interface.
-- `mne`: For working with EDF files.
-- `pandas`: For data processing and generating statistics.
-- `tqdm`: For displaying progress during operations.
-- `transliterate`: For transliterating patient names.
-
----
-
 ## 📜 License
 
 This project is licensed under the **MIT License**. For details, see the [LICENSE](LICENSE) file.
@@ -75,7 +65,7 @@ This project is licensed under the **MIT License**. For details, see the [LICENS
 
 ## 👨‍💻 Author
 
-**Tim Liner**  
+**Timur Petrenko**  
 📧 Email: [psy66@narod.ru](mailto:psy66@narod.ru)
 
 ---
@@ -139,16 +129,6 @@ Your feedback and ideas will help make this project better! 🚀
    - **🎲 Рандомизировать названия**: Рандомизирует имена файлов.
    - **👤 Удалить patientinfo**: Удаляет информацию о пациенте из файлов.
    - **📄 Прочитать info EDF**: Отображает информацию о выбранном EDF-файле.
-
----
-
-## 📦 Зависимости
-
-- `tkinter`: Для создания графического интерфейса.
-- `mne`: Для работы с EDF-файлами.
-- `pandas`: Для обработки данных и генерации статистики.
-- `tqdm`: Для отображения прогресса выполнения операций.
-- `transliterate`: Для транслитерации имен пациентов.
 
 ---
 
