@@ -66,14 +66,7 @@ Timur Petrenko
 If you use this tool in your research, please consider citing it as follows:
 
 ```
-@misc{EDFFileManager,
-  author = {Timur Petrenko},
-  title = {EDF File Manager},
-  year = {2023},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  howpublished = {\url{https://github.com/Psy66/EEG_Stat}},
-}
+Petrenko, Timur. EDF File Manager. 2025. Available on GitHub: https://github.com/Psy66/EEG_Stat.
 ```
 
 ---
